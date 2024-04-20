@@ -5,17 +5,35 @@ import stopsImage from "./stops-image.png";
 import { pluralize } from "../../util";
 import { TicketType } from "../../App";
 import moment from "moment";
+import { CoursesType } from "../../useCourses";
+import { CurrrencyType } from "../CurrenciesSwitch/CurrenciesSwitch";
 
 const MOMENT_FORMAT = "D MMM YYYY, dd";
 
-export function Ticket({ ticket }: { ticket: TicketType }) {
+const currenciesSymbols: Record<CurrrencyType, string> = {
+  RUB: "₽",
+  USD: "$",
+  EUR: "€",
+};
+
+export function Ticket({
+  ticket,
+  courses,
+  currency,
+}: {
+  ticket: TicketType;
+  courses: CoursesType;
+  currency: CurrrencyType;
+}) {
   return (
     <Card>
       <div className={s.content}>
         <div className={s.left}>
           <img src={airlinesLogo} className={s.logo} />
           <button className={s.button}>
-            Купить <br /> за {ticket.price}₽
+            Купить <br /> за{" "}
+            {calcPrice(ticket.price, (courses as any)[currency])}
+            {currenciesSymbols[currency]}
           </button>
         </div>
         <div className={s.right}>
@@ -45,4 +63,8 @@ export function Ticket({ ticket }: { ticket: TicketType }) {
       </div>
     </Card>
   );
+}
+
+function calcPrice(price: number, currencyBet: number) {
+  return Math.round(price * currencyBet * 100) / 100;
 }

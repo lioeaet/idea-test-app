@@ -8,6 +8,11 @@ import { Card } from "./components/Card/Card";
 import { Ticket } from "./components/Ticket/Ticket";
 import moment from "moment";
 import "moment/locale/ru";
+import {
+  CurrenciesSwitch,
+  CurrrencyType,
+} from "./components/CurrenciesSwitch/CurrenciesSwitch";
+import { useCourses } from "./useCourses";
 
 export interface TicketType {
   price: number;
@@ -28,6 +33,10 @@ sortedTickets.sort((x, y) => (x.price > y.price ? 1 : -1));
 moment.locale("ru");
 
 function App() {
+  const { courses, coursesLoading, coursesError } = useCourses();
+
+  const [activeCurrency, setActiveCurrency] = useState<CurrrencyType>("RUB");
+
   const [stops, setStops] = useState<number[]>([]);
   const stopsCheckboxesAvailableValues = useMemo(
     () =>
@@ -49,6 +58,18 @@ function App() {
     <div className={s.app}>
       <div className={s.left}>
         <Card>
+          {!coursesError && (
+            <Field name="ВАЛЮТА">
+              {coursesLoading ? (
+                <span className={s.coursesLoader}>loading...</span>
+              ) : (
+                <CurrenciesSwitch
+                  activeCurrency={activeCurrency}
+                  setActiveCurrency={setActiveCurrency}
+                />
+              )}
+            </Field>
+          )}
           <Field name="КОЛИЧЕСТВО ПЕРЕСАДОК">
             <StopsCheckboxes
               values={stops}
@@ -60,7 +81,14 @@ function App() {
       </div>
       <div className={s.right}>
         {filteredTickets.map((ticket) => {
-          return <Ticket ticket={ticket} key={ticket.price} />;
+          return (
+            <Ticket
+              ticket={ticket}
+              courses={courses}
+              currency={activeCurrency}
+              key={ticket.price}
+            />
+          );
         })}
       </div>
     </div>

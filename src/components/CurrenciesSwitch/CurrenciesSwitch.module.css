@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  padding: 10px 10px 15px 10px;
+}
+
+.currency {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #0099fa;
+  background: white;
+  width: 33.3%;
+  height: 30px;
+  border: 1px solid #e3e5e6;
+}
+
+.currency:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.currency:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.currency:hover {
+  border-color: #0099fa;
+  background: #f0fcff;
+}
+
+.currency.active {
+  background: #0099fa;
+  border-color: #0099fa;
+  color: white;
+}
+
+.currency.active:hover {
+  opacity: 0.9;
+}
