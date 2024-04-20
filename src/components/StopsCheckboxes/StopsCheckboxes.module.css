@@ -1,0 +1,28 @@
+.checkboxContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.checkboxContainer:hover {
+  background: rgb(238 252 255);
+}
+
+.input {
+  margin-right: 10px;
+}
+
+.checkboxContainer:hover .only {
+  display: inline;
+}
+
+.label {
+  cursor: pointer;
+}
+
+.only {
+  display: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: rgb(0, 170, 252);
+}

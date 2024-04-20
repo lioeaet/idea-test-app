@@ -1,24 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from "react";
+import logo from "./logo.svg";
+import { Field } from "./components/Field/Field";
+import s from "./App.module.css";
+import data from "./tickets.json";
+import { StopsCheckboxes } from "./components/StopsCheckboxes/StopsCheckboxes";
+import { Card } from "./components/Card/Card";
+import { Ticket } from "./components/Ticket/Ticket";
+import moment from "moment";
+import "moment/locale/ru";
+
+export interface TicketType {
+  price: number;
+  departure_time: string;
+  origin: string;
+  origin_name: string;
+  departure_date: string;
+  stops: number;
+  arrival_time: string;
+  destination: string;
+  destination_name: string;
+  arrival_date: string;
+}
+
+const sortedTickets: TicketType[] = data.tickets;
+sortedTickets.sort((x, y) => (x.price > y.price ? 1 : -1));
+
+moment.locale("ru");
 
 function App() {
+  const [stops, setStops] = useState<number[]>([]);
+  const stopsCheckboxesAvailableValues = useMemo(
+    () =>
+      sortedTickets.reduce<number[]>((acc, ticket) => {
+        if (!acc.includes(ticket.stops)) {
+          acc.push(ticket.stops);
+          acc.sort((x, y) => (x > y ? 1 : -1));
+        }
+        return acc;
+      }, []),
+    []
+  );
+  const filteredTickets = useMemo(() => {
+    if (!stops.length) return sortedTickets;
+    return sortedTickets.filter((ticket) => stops.includes(ticket.stops));
+  }, [stops]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={s.app}>
+      <div className={s.left}>
+        <Card>
+          <Field name="КОЛИЧЕСТВО ПЕРЕСАДОК">
+            <StopsCheckboxes
+              values={stops}
+              availableValues={stopsCheckboxesAvailableValues}
+              setValues={setStops}
+            />
+          </Field>
+        </Card>
+      </div>
+      <div className={s.right}>
+        {filteredTickets.map((ticket) => {
+          return <Ticket ticket={ticket} key={ticket.price} />;
+        })}
+      </div>
     </div>
   );
 }

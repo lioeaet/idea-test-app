@@ -1,0 +1,57 @@
+.content {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: 1px solid rgb(242, 244, 245);
+}
+
+.logo {
+  max-width: 150px;
+}
+
+.button {
+  background: rgb(255 96 0);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.right {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+
+.departure,
+.arrival {
+  z-index: 2;
+}
+
+.stops {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.time {
+  font-size: 30px;
+}
+
+.airport {
+  font-weight: 600;
+}
