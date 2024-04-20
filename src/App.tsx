@@ -12,7 +12,7 @@ import {
   CurrenciesSwitch,
   CurrrencyType,
 } from "./components/CurrenciesSwitch/CurrenciesSwitch";
-import { useCourses } from "./useCourses";
+import { useCurrenciesRates } from "./useCurrenciesRates";
 
 export interface TicketType {
   price: number;
@@ -33,7 +33,8 @@ sortedTickets.sort((x, y) => (x.price > y.price ? 1 : -1));
 moment.locale("ru");
 
 function App() {
-  const { courses, coursesLoading, coursesError } = useCourses();
+  const { currenciesRates, currenciesRatesLoading, currenciesRatesError } =
+    useCurrenciesRates();
 
   const [activeCurrency, setActiveCurrency] = useState<CurrrencyType>("RUB");
 
@@ -58,10 +59,10 @@ function App() {
     <div className={s.app}>
       <div className={s.left}>
         <Card>
-          {!coursesError && (
+          {!currenciesRatesError && (
             <Field name="ВАЛЮТА">
-              {coursesLoading ? (
-                <span className={s.coursesLoader}>loading...</span>
+              {currenciesRatesLoading ? (
+                <span className={s.currenciesRatesLoader}>loading...</span>
               ) : (
                 <CurrenciesSwitch
                   activeCurrency={activeCurrency}
@@ -84,8 +85,8 @@ function App() {
           return (
             <Ticket
               ticket={ticket}
-              courses={courses}
               currency={activeCurrency}
+              currenciesRates={currenciesRates}
               key={ticket.price}
             />
           );

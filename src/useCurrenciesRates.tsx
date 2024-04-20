@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export interface CoursesType {
+export interface CurrenciesRatesType {
   RUB: number;
   USD: number;
   EUR: number;
@@ -14,8 +14,8 @@ interface EURResType {
   data: { EUR: number };
 }
 
-export function useCourses() {
-  const [courses, setCourses] = useState<CoursesType>({
+export function useCurrenciesRates() {
+  const [currenciesRates, setCurrenciesRates] = useState<CurrenciesRatesType>({
     RUB: 1,
     USD: 1,
     EUR: 1,
@@ -33,7 +33,7 @@ export function useCourses() {
       ).then((res) => res.json()),
     ])
       .then(([rubUsd, rubEur]: [USDResType, EURResType]) => {
-        setCourses({
+        setCurrenciesRates({
           RUB: 1,
           USD: rubUsd.data.USD,
           EUR: rubEur.data.EUR,
@@ -42,9 +42,13 @@ export function useCourses() {
       })
       .catch(() => {
         setLoading(false);
-        setError("failed to fetch courses");
+        setError("failed to fetch currenciesRates");
       });
-  }, [setCourses, setLoading, setError]);
+  }, [setCurrenciesRates, setLoading, setError]);
 
-  return { courses, coursesLoading: loading, coursesError: error };
+  return {
+    currenciesRates,
+    currenciesRatesLoading: loading,
+    currenciesRatesError: error,
+  };
 }
