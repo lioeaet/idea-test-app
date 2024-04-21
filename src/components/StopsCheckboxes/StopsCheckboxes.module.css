@@ -1,23 +1,20 @@
-.checkboxContainer {
+.label {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  cursor: pointer;
 }
 
-.checkboxContainer:hover {
+.label:hover {
   background: rgb(238 252 255);
+}
+
+.label:hover .only {
+  display: inline;
 }
 
 .input {
   margin-right: 10px;
-}
-
-.checkboxContainer:hover .only {
-  display: inline;
-}
-
-.label {
-  cursor: pointer;
 }
 
 .only {
@@ -25,4 +22,8 @@
   cursor: pointer;
   font-weight: 600;
   color: rgb(0, 170, 252);
+}
+
+.only:hover {
+  opacity: 0.8;
 }

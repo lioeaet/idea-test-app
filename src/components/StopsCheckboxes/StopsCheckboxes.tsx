@@ -13,7 +13,7 @@ export function StopsCheckboxes({
   const areAllChecked = availableValues.every((val) => values.includes(val));
 
   return (
-    <div>
+    <>
       <StopsCheckbox
         label="Все"
         checked={areAllChecked}
@@ -44,7 +44,7 @@ export function StopsCheckboxes({
           />
         );
       })}
-    </div>
+    </>
   );
 }
 
@@ -60,8 +60,8 @@ function StopsCheckbox({
   onClickOnly?: () => void;
 }) {
   return (
-    <div className={s.checkboxContainer}>
-      <label className={s.label}>
+    <label className={s.label}>
+      <div className={s.checkboxContainer}>
         <input
           type="checkbox"
           className={s.input}
@@ -69,12 +69,18 @@ function StopsCheckbox({
           onChange={onChange}
         />
         {label}
-      </label>
+      </div>
       {onClickOnly && (
-        <span className={s.only} onClick={onClickOnly}>
+        <span
+          className={s.only}
+          onClick={(e) => {
+            e.preventDefault();
+            onClickOnly();
+          }}
+        >
           ТОЛЬКО
         </span>
       )}
-    </div>
+    </label>
   );
 }
