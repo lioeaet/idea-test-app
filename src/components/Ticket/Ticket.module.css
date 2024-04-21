@@ -46,6 +46,23 @@
   transform: translateX(-50%);
   text-align: center;
   z-index: 1;
+  border-bottom: 1px solid d1d5d6;
+}
+
+.stops:before {
+  position: absolute;
+  content: "";
+  width: 190px;
+  border-bottom: 1px solid #d1d5d6;
+  bottom: -16px;
+  left: -50px;
+}
+
+.airplaneImage {
+  position: absolute;
+  width: 25px;
+  bottom: -28px;
+  right: -58px;
 }
 
 .time {

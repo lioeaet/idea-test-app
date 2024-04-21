@@ -7,6 +7,7 @@ import { TicketType } from "../../App";
 import moment from "moment";
 import { CurrenciesRatesType } from "../../useCurrenciesRates";
 import { CurrrencyType } from "../CurrenciesSwitch/CurrenciesSwitch";
+import airplaneImage from "./airplane.png";
 
 const MOMENT_FORMAT = "D MMM YYYY, dd";
 
@@ -47,8 +48,8 @@ export function Ticket({
             </div>
           </div>
           <div className={s.stops}>
-            {pluralize(ticket.stops, ["пересадка", "пересадки", "пересадок"])}
-            <img src={stopsImage} />
+            {pluralize(ticket.stops, ["ПЕРЕСАДКА", "ПЕРЕСАДКИ", "ПЕРЕСАДОК"])}
+            <img className={s.airplaneImage} src={airplaneImage} />
           </div>
           <div className={s.arrival}>
             <div className={s.time}>{ticket.arrival_time}</div>
