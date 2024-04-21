@@ -33,7 +33,7 @@ export function Ticket({
           <img src={airlinesLogo} className={s.logo} />
           <button className={s.button}>
             Купить <br /> за{" "}
-            {calcPrice(ticket.price, (currenciesRates as any)[currency])}
+            {calcPrice(ticket.price, currenciesRates[currency])}
             {currenciesSymbols[currency]}
           </button>
         </div>
