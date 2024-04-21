@@ -48,7 +48,13 @@ export function Ticket({
             </div>
           </div>
           <div className={s.stops}>
-            {pluralize(ticket.stops, ["ПЕРЕСАДКА", "ПЕРЕСАДКИ", "ПЕРЕСАДОК"])}
+            {ticket.stops === 0
+              ? "БЕЗ ПЕРЕСАДОК"
+              : pluralize(ticket.stops, [
+                  "ПЕРЕСАДКА",
+                  "ПЕРЕСАДКИ",
+                  "ПЕРЕСАДОК",
+                ])}
             <img className={s.airplaneImage} src={airplaneImage} />
           </div>
           <div className={s.arrival}>
